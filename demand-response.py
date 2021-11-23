@@ -163,7 +163,7 @@ def pset_mode(value, ranking):
 
         if actual_state[minor_priority[0]]:
             load_manual_coil = minor_priority[0] + 16
-            print("load: ", minor_priority[0] + 1)
+            print("switch: ", minor_priority[0] + 1)
             load_state_coil = minor_priority[0] + 9
 
             relay = "relay" + str(minor_priority[0] + 1)
@@ -176,9 +176,8 @@ def pset_mode(value, ranking):
             state = client.read_coils(9, 16, unit=UNIT)
             actual_state = [state.bits[0], state.bits[1], state.bits[2], state.bits[3],
                             state.bits[4], state.bits[5], state.bits[6]]
-            print("state dentro do if: ", actual_state)
             power_consumption = actual_state.count(True) * 828
-            print("power consumption dentro do if: ", power_consumption)
+            print("power consumption: ", power_consumption)
 
         else:
             aux += base_value
@@ -195,7 +194,7 @@ def getValues():
 
     pset_mode(power_value, ranking)
 
-    time.sleep(15)  # wait 5 seconds
+    time.sleep(5)  # wait 5 seconds
 
 
 while True:
