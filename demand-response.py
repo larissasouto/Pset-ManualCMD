@@ -138,7 +138,7 @@ def calculate_priority(values):
 
     memCMD = endCMD
     memYGr = YGr
-
+    time.sleep(10)
     return YGr
 
 
