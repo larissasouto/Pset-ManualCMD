@@ -1,5 +1,5 @@
 from pymodbus.client.sync import ModbusTcpClient
-# import gpiozero
+import gpiozero
 import time
 from operator import itemgetter
 import numpy as np
@@ -26,13 +26,13 @@ PIN | GPIO
 40     21
 """
 
-# relay1 = gpiozero.OutputDevice(5, initial_value=True)
-# relay2 = gpiozero.OutputDevice(6, initial_value=True)
-# relay3 = gpiozero.OutputDevice(13, initial_value=True)
-# relay4 = gpiozero.OutputDevice(16, initial_value=True)
-# relay5 = gpiozero.OutputDevice(19, initial_value=True)
-# relay6 = gpiozero.OutputDevice(20, initial_value=True)
-# relay7 = gpiozero.OutputDevice(21, initial_value=True)
+relay1 = gpiozero.OutputDevice(5, initial_value=True)
+relay2 = gpiozero.OutputDevice(6, initial_value=True)
+relay3 = gpiozero.OutputDevice(13, initial_value=True)
+relay4 = gpiozero.OutputDevice(16, initial_value=True)
+relay5 = gpiozero.OutputDevice(19, initial_value=True)
+relay6 = gpiozero.OutputDevice(20, initial_value=True)
+relay7 = gpiozero.OutputDevice(21, initial_value=True)
 
 # initial Loads states
 status = client.read_coils(9, 15, unit=UNIT)
@@ -48,64 +48,64 @@ memYGr = [0.875, 0.75, 0.625, 0.5, 0.375, 0.25, 0.125]
 def manual_command(values):
     # Load 1 - manual CMD
     load_1_State = values.bits[0]
-    # if load_1_State:  # True
-    #     relay1.off()  # load ON
-    # else:
-    #     relay1.on()  # load OFF
+    if load_1_State:  # True
+        relay1.off()  # load ON
+    else:
+        relay1.on()  # load OFF
 
     client.write_coil(9, load_1_State, unit=UNIT)
 
     # Load 2 - manual CMD
     load_2_State = values.bits[1]
-    # if load_2_State:  # True
-    #     relay2.off()  # load ON
-    # else:
-    #     relay2.on()  # load OFF
+    if load_2_State:  # True
+        relay2.off()  # load ON
+    else:
+        relay2.on()  # load OFF
 
     client.write_coil(10, load_2_State, unit=UNIT)
 
     # Load 3 - manual CMD
     load_3_State = values.bits[2]
-    # if load_3_State:  # True
-    #     relay3.off()  # load ON
-    # else:
-    #     relay3.on()  # load OFF
+    if load_3_State:  # True
+        relay3.off()  # load ON
+    else:
+        relay3.on()  # load OFF
 
     client.write_coil(11, load_3_State, unit=UNIT)
 
     # Load 4 - manual CMD
     load_4_State = values.bits[3]
-    # if load_4_State:  # True
-    #     relay4.off()  # load ON
-    # else:
-    #     relay4.on()  # load OFF
+    if load_4_State:  # True
+        relay4.off()  # load ON
+    else:
+        relay4.on()  # load OFF
 
     client.write_coil(12, load_4_State, unit=UNIT)
 
     # Load 5 - manual CMD
     load_5_State = values.bits[4]
-    # if load_5_State:  # True
-    #     relay5.off()  # load ON
-    # else:
-    #     relay5.on()  # load OFF
+    if load_5_State:  # True
+        relay5.off()  # load ON
+    else:
+        relay5.on()  # load OFF
 
     client.write_coil(13, load_5_State, unit=UNIT)
 
     # Load 6 - manual CMD
     load_6_State = values.bits[5]
-    # if load_6_State:  # True
-    #     relay6.off()  # load ON
-    # else:
-    #     relay6.on()  # load OFF
+    if load_6_State:  # True
+        relay6.off()  # load ON
+    else:
+        relay6.on()  # load OFF
 
     client.write_coil(14, load_6_State, unit=UNIT)
 
     # Load 7 - manual CMD
     load_7_State = values.bits[6]
-    # if load_7_State:  # True
-    #     relay7.off()  # load ON
-    # else:
-    #     relay7.on()  # load OFF
+    if load_7_State:  # True
+        relay7.off()  # load ON
+    else:
+        relay7.on()  # load OFF
 
     client.write_coil(15, load_7_State, unit=UNIT)
 
@@ -167,7 +167,21 @@ def pset_mode(value, ranking):
             load_state_coil = minor_priority[0] + 9
 
             relay = "relay" + str(minor_priority[0] + 1)
-            #relay.on()  # load OFF
+            if relay == "relay1":
+                relay1.on()  # load OFF
+            if relay == "relay2":
+                relay2.on()  # load OFF
+            if relay == "relay3":
+                relay3.on()  # load OFF
+            if relay == "relay4":
+                relay4.on()  # load OFF
+            if relay == "relay5":
+                relay5.on()  # load OFF
+            if relay == "relay6":
+                relay6.on()  # load OFF
+            if relay == "relay7":
+                relay7.on()  # load OFF
+
             client.write_coil(load_state_coil, 0, unit=UNIT)
             client.write_coil(load_manual_coil, 0, unit=UNIT)
             time.sleep(10)
